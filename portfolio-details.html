@@ -94,40 +94,26 @@
 
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/ADH App/1.png" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/ADH App/2.png" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/ADH App/3.png" alt="">
-                </div>
-
+              <div class="swiper-wrapper align-items-center" id="swiper-images-container">
+                <!-- JS will inject slides here -->
               </div>
               <div class="swiper-pagination"></div>
             </div>
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-4" id="project-details">
             <div class="portfolio-info">
               <h3>Project information</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Category</strong>: <span id="project-type">App/Web</span></li>
+                <li><strong>Client</strong>: <span id="project-client">Portfolio</span></li>
+                <li><strong>Project date</strong>: <span id="project-date">N/A</span></li>
+                <li><strong>Project URL</strong>: <a href="#" id="project-url">#</a></li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
+              <h2 id="project-title">Project Name</h2>
+              <p id="project-description">This is a portfolio project showcasing selected screenshots of the application.</p>
             </div>
           </div>
 
@@ -169,6 +155,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/images.js"></script>
 
 </body>
 
