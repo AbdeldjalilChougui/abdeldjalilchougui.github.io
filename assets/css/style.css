@@ -1,16 +1,14 @@
-/**
-* Template Name: iPortfolio - v3.7.0
-* Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
+    background-color: red !important;
+
 }
 
 a {
@@ -195,29 +193,91 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+
+
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero.jpg") top right;
+  background-color: #040b14; 
+  background-image: none;
   background-size: cover;
+  position: relative; 
+  overflow: hidden;   
 }
 
-
-#hero:before {
-  content: "";
-  background: rgba(5, 13, 24, 0.3);
+/* 2. Style the image container pseudo-element (starts hidden) */
+#hero::after {
+  content: '';
   position: absolute;
-  bottom: 0;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  bottom: 0;
+  z-index: 1; /* Sits below content but above the shimmer */
+  
+  /* The image will be applied here by JS */
+  background-image: var(--bg-image); 
+  background-size: cover;
+  background-position: top right;
+
+  /* Animation setup */
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out; /* Smooth fade-in for the image */
 }
+
+/* 3. Style the shimmer pseudo-element */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2; /* Sits on top of the black background */
+
+  /* The gradient that creates the shimmer effect */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%; /* Makes the gradient wide enough to slide across */
+  
+  /* Animation setup */
+  animation: shimmer 2s infinite;
+  opacity: 1;
+  transition: opacity 0.8s ease; /* Smooth fade-out for the shimmer */
+}
+
+/* 4. The shimmer animation keyframes */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* 5. The "loaded" state */
+#hero.hero-loaded::after {
+  opacity: 1; /* Fade in the image */
+}
+
+#hero.hero-loaded::before {
+  opacity: 0; /* Fade out the shimmer */
+  animation: none; /* Stop the animation to save resources */
+}
+
+/* Your hero content needs a higher z-index to appear above the effects */
 #hero .hero-container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   min-width: 300px;
 }
+
+
 #hero h1 {
   margin: 0 0 10px 0;
   font-size: 64px;
@@ -238,7 +298,7 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 3px solid #149ddd;
 }
 @media (min-width: 1024px) {
-  #hero {
+  #hero::after {
     background-attachment: fixed;
   }
 }

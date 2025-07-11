@@ -1,9 +1,4 @@
-/**
-* Template Name: iPortfolio - v3.7.0
-* Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+
 (function() {
   "use strict";
 
@@ -40,6 +35,7 @@
     el.addEventListener('scroll', listener)
   }
 
+
   /**
    * Navbar links active state on scroll
    */
@@ -57,7 +53,7 @@
       }
     })
   }
-  window.addEventListener('load', navbarlinksActive)
+
   onscroll(document, navbarlinksActive)
 
   /**
@@ -71,19 +67,57 @@
     })
   }
 
+
+    // =================================================================
+  // NEW: Lazy Load Hero Background
+  // =================================================================
+  const lazyLoadHero = () => {
+    const heroElement = select('#hero');
+    if (!heroElement) return;
+
+    const heroImageURL = heroElement.getAttribute('data-src');
+    if (!heroImageURL) return;
+
+    // Use IntersectionObserver to detect when the element is visible
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        // When the hero section is intersecting the viewport
+        if (entry.isIntersecting) {
+          // Preload the image in the background
+          const img = new Image();
+          img.src = heroImageURL;
+          
+          // Once the image is fully downloaded...
+          img.onload = () => {
+            // ...set the CSS variable and add the 'loaded' class
+            heroElement.style.setProperty('--bg-image', `url(${heroImageURL})`);
+            heroElement.classList.add('hero-loaded');
+          };
+          
+          // We only need to do this once, so stop observing
+          observer.unobserve(heroElement);
+        }
+      });
+    });
+
+    // Start observing the hero element
+    observer.observe(heroElement);
+  };
+
   /**
    * Back to top button
    */
   let backtotop = select('.back-to-top')
-  if (backtotop) {
-    const toggleBacktotop = () => {
+
+  const toggleBacktotop = () => {
       if (window.scrollY > 100) {
         backtotop.classList.add('active')
       } else {
         backtotop.classList.remove('active')
       }
     }
-    window.addEventListener('load', toggleBacktotop)
+
+  if (backtotop) {
     onscroll(document, toggleBacktotop)
   }
 
@@ -117,13 +151,7 @@
   /**
    * Scroll with ofset on page load with hash links in the url
    */
-  window.addEventListener('load', () => {
-    if (window.location.hash) {
-      if (select(window.location.hash)) {
-        scrollto(window.location.hash)
-      }
-    }
-  });
+  
 
   /**
    * Hero type effect
@@ -157,6 +185,30 @@
       }
     })
   }
+
+   window.addEventListener('load', () => {
+    // Functions that need to run on page load
+    navbarlinksActive();
+    toggleBacktotop();
+    
+    // Handle hash links
+    if (window.location.hash) {
+      if (select(window.location.hash)) {
+        scrollto(window.location.hash)
+      }
+    }
+    
+    // Initialize animations
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+    
+    // *** Crucially, run the lazy loader LAST ***
+    lazyLoadHero(); 
+  });
 
   /**
    * Porfolio isotope and filter
@@ -239,18 +291,6 @@
         spaceBetween: 20
       }
     }
-  });
-
-  /**
-   * Animation on scroll
-   */
-  window.addEventListener('load', () => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    })
   });
 
 })()
