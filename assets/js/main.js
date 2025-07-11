@@ -85,12 +85,13 @@
         if (entry.isIntersecting) {
           // Preload the image in the background
           const img = new Image();
-          img.src = heroImageURL;
+          img.src = "assets/" + heroImageURL;
+          console.log("Preloading hero image:", img.src);
           
           // Once the image is fully downloaded...
           img.onload = () => {
             // ...set the CSS variable and add the 'loaded' class
-            heroElement.style.setProperty('--bg-image', `url(${heroImageURL})`);
+            heroElement.style.setProperty('--bg-image', `url(${img.src})`);
             heroElement.classList.add('hero-loaded');
           };
           
