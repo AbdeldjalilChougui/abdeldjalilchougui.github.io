@@ -86,7 +86,6 @@
           // Preload the image in the background
           const img = new Image();
           img.src = "assets/" + heroImageURL;
-          console.log("Preloading hero image:", img.src);
           
           // Once the image is fully downloaded...
           img.onload = () => {
