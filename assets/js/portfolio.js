@@ -58,7 +58,7 @@ function renderProjects(projectList) {
     item.className = `portfolio-item ${project.type}`;
     item.innerHTML = `
       <div class="portfolio-wrap">
-        <img src="${project.image}" alt="${project.name}">
+        <img src="${project.image}" alt="${project.name}"  loading="lazy">
         <div class="portfolio-title">${project.title}</div>
 
         <div class="portfolio-links">
